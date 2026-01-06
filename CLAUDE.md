@@ -51,11 +51,11 @@ class_name BuildingBase
 
 # snake_case for variables and functions
 func calculate_production() -> int:
-    pass
+	pass
 
 # Prefix signal handlers with _on_
 func _on_button_pressed() -> void:
-    pass
+	pass
 
 # Use @export for editor-configurable values
 @export var production_rate: float = 1.0

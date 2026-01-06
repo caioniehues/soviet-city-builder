@@ -1,6 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dg5q2qgmt1t3j"]
+[gd_scene load_steps=10 format=3 uid="uid://dg5q2qgmt1t3j"]
 
-[ext_resource type="Script" path="res://scripts/core/camera_controller.gd" id="1_camera"]
+[ext_resource type="Script" uid="uid://rl673suaoqeh" path="res://scripts/core/camera_controller.gd" id="1_camera"]
+[ext_resource type="Script" uid="uid://c2gox6rxttans" path="res://scripts/core/placement_manager.gd" id="2_tbgi4"]
+[ext_resource type="Script" uid="uid://cd2clryekxupq" path="res://scripts/core/grid_placement_controller.gd" id="3_tefeu"]
+[ext_resource type="Script" uid="uid://cgusuay70jnp4" path="res://scripts/core/building_ghost.gd" id="4_o6xl0"]
+[ext_resource type="Script" uid="uid://bsmddv82d675q" path="res://scripts/ui/placement_ui.gd" id="5_tipki"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 sky_top_color = Color(0.4, 0.5, 0.6, 1)
@@ -47,3 +51,62 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
 size = Vector3(200, 1, 200)
 material = SubResource("StandardMaterial3D_ground")
+
+[node name="TestBuilding" type="CSGBox3D" parent="."]
+size = Vector3(0, 0, 0)
+
+[node name="Building2" type="CSGBox3D" parent="."]
+size = Vector3(0, 0, 0)
+
+[node name="Building3" type="CSGBox3D" parent="."]
+size = Vector3(0, 0, 0)
+
+[node name="Building4" type="CSGBox3D" parent="."]
+size = Vector3(0, 0, 0)
+
+[node name="GridOverlay" type="MeshInstance3D" parent="."]
+
+[node name="PlacementSystem" type="Node" parent="."]
+script = ExtResource("2_tbgi4")
+
+[node name="GridPlacementController" type="Node" parent="PlacementSystem"]
+script = ExtResource("3_tefeu")
+
+[node name="BuildingGhost" type="Node3D" parent="PlacementSystem"]
+script = ExtResource("4_o6xl0")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PlacementUI" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("5_tipki")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PlacementUI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+offset_right = 400.0
+grow_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PlacementUI/MarginContainer"]
+layout_mode = 2
+
+[node name="ModeLabel" type="Label" parent="UI/PlacementUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Mode: Normal | [B] Build"
+
+[node name="CoordinateLabel" type="Label" parent="UI/PlacementUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Grid: (0, 0)"
+
+[node name="StatusLabel" type="Label" parent="UI/PlacementUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = ""
+visible = false
