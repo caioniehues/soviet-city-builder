@@ -2,8 +2,8 @@ class_name PlacementManager
 extends Node
 ## Manages the building placement workflow.
 
-@export var grid_controller: GridPlacementController
-@export var ghost: BuildingGhost
+@onready var grid_controller: GridPlacementController = $GridPlacementController
+@onready var ghost: BuildingGhost = $BuildingGhost
 
 var _current_grid_pos: Vector3i = Vector3i.ZERO
 
